@@ -23,16 +23,16 @@ sec_group_cite = {}
 def prepare(doc):
     global sec_group
     global sec_group_cite
-    sec_group_names = doc.get_metadata('secGroupTags')
-    if sec_group_names: # FIXME: add control isinstance
-        if isinstance(sec_group_names, list):
-            for name in sec_group_names:
-                sec_group[name] = []
-                sec_group_cite[name] = [] # there may be multiple citations
-        elif isinstance(sec_group_names, str):
-            name = sec_group_names
-            sec_group[name] = []
-            sec_group_cite[name] = []
+    sec_group_tags = doc.get_metadata('secGroupTags')
+    if sec_group_tags: # FIXME: add control isinstance
+        if isinstance(sec_group_tags, list):
+            for tag in sec_group_tags:
+                sec_group[tag] = []
+                sec_group_cite[tag] = [] # there may be multiple citations
+        elif isinstance(sec_group_tags, str):
+            tag = sec_group_tags
+            sec_group[tag] = []
+            sec_group_cite[tag] = []
             
 
 def action(elem, doc):
@@ -42,17 +42,17 @@ def action(elem, doc):
         return None # leave element unchanged
     s = pf.stringify(elem)
     if isinstance(elem, pf.Header):
-        for name in sec_group:
-            if elem.attributes.get(name):
-                sec_group[name].append({
+        for tag in sec_group:
+            if elem.attributes.get(tag):
+                sec_group[tag].append({
                     'id': elem.identifier,
                     'title': s
                 })
     elif isinstance(elem,pf.Cite) and s[1:] and s[1:] in sec_group_cite:
-        name = s[1:]
+        tag = s[1:]
         new_elem = pf.Span() 
         # we put an empty span elem here, we will fill it later in finalize
-        sec_group_cite[name].append(new_elem)
+        sec_group_cite[tag].append(new_elem)
         return new_elem
 
 def finalize(doc):
@@ -60,16 +60,16 @@ def finalize(doc):
     global sec_group_cite
     if not sec_group:
         return
-    for name in sec_group_cite:
+    for tag in sec_group_cite:
         citation_list = [
             "@{} ({})".format(sec['id'], sec['title'])
-            for sec in sec_group[name] 
+            for sec in sec_group[tag] 
         ]
         citation_list_str = ", ".join(citation_list)
         citation_list_pandoc = pf.convert_text(citation_list_str)
         # convert_text returns a Para obj,
         # we copy its content in the Span obj created above
-        for elem in sec_group_cite[name]:
+        for elem in sec_group_cite[tag]:
             elem.content = citation_list_pandoc[0].content
 
 if __name__ == '__main__':
