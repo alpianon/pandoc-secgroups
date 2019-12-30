@@ -10,17 +10,17 @@ secGroupTags:
 
 # Section A
 
-## Subsection AA {#sec:AA vex}
+## Subsection AA {#sec:AA vex=1}
 
 "cons" sections are @cons
 
 "vex" sections are @vex
 
-# Section B {#sec:B vex cons}
+# Section B {#sec:B vex=1 cons=1}
 
 Dummy text
 
-## Subsection BA {#sec:BA cons}
+## Subsection BA {#sec:BA cons=1}
 
 Dummy text
 

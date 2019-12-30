@@ -31,8 +31,7 @@ secGroupTags:
 - vex
 - cons
 ```
-the part in curly brackets after the section reference (`{#sec:AA vex}`) and the `@vex` and `@cons` pointers within the text.
-
+the part in curly brackets after the section reference (`{#sec:AA vex=1}`) and the `@vex` and `@cons` pointers within the text.
 
 [pandoc-vex]: https://github.com/alpianon/pandoc-vex
 [pandoc]: https://github.com/jgm/pandoc
