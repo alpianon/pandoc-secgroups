@@ -17,6 +17,8 @@
 
 import panflute as pf
 
+import sys
+
 sec_group = {}
 sec_group_cite = {}
 
@@ -66,6 +68,10 @@ def finalize(doc):
             for sec in sec_group[tag] 
         ]
         citation_list_str = ", ".join(citation_list)
+        if not citation_list_str:
+            sys.stderr.write("WARNING: no sections found with tag '%s'\n" % tag)
+            citation_list_str = "¿@%s?" % tag
+
         citation_list_pandoc = pf.convert_text(citation_list_str)
         # convert_text returns a Para obj,
         # we copy its content in the Span obj created above
