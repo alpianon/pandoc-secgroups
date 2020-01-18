@@ -20,16 +20,6 @@ this program. If not, see <https://www.gnu.org/licenses/>.
 local sec_group = {}
 local sec_group_citation = {}
 
-local function str2pandoc(str)
-  local res
-  for k, v in pairs(pandoc.read(str).blocks) do
-    -- FIXME: hacky way to read the first element of the table created by
-    -- pandoc.read, which cannot be accessed by index 1 (needs investigation...)
-    res = v.content
-  end
-  return res
-end
-
 function get_tags(meta)
   local tag
   if type(meta.secGroupTags) == 'table' then
@@ -68,7 +58,9 @@ function create_group_citations(doc)
      for index, sec in pairs(sec_list) do
        table.insert(cit, "@"..sec.id.." ("..sec.title..")")
      end
-     sec_group_citation[tag] = str2pandoc(table.concat(cit, ", "))
+     local cit_str = table.concat(cit, ", ")
+     local blocks = pandoc.read(cit_str).blocks
+     sec_group_citation[tag] = blocks[1].content
    end
 end
 
