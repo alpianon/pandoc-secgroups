@@ -12,13 +12,22 @@ Users of [pandoc-vex] should soon replace that filter with this one, which is mo
 
 **Note**: it is assumed that [pandoc] and [pandoc-crossref] are already installed and that you know how to use them
 
+### New lua filter (RECOMMENDED)
+
+Simply copy `secgroup.lua` to `~/.pandoc/filters`
+
+### Old python filter (LEGACY)
+
 1. Install panflute: `sudo pip3 install panflute`
 
-  2. Copy pandoc-secgroups in a folder included in PATH and make it executable: `sudo cp pandoc-secgroups /usr/local/bin/ && sudo chmod +x /usr/local/bin/pandoc-secgroups`
+2. Copy pandoc-secgroups in a folder included in PATH and make it executable: `sudo cp pandoc-secgroups /usr/local/bin/ && sudo chmod +x /usr/local/bin/pandoc-secgroups`
 
 ## usage
 
 The filter must be put *before* pandoc-crossref in pandoc filter chain.
+If you use the new lua filter (recommended), put `--lua-filter=secgroups.lua` in your pandoc command. 
+
+If you still want to use the old (legacy) python filter, use `--filter=pandoc-secgroups` instead - but it is not recommended, since the new lua filter may be almost 3 times faster.
 
 ## syntax
 
