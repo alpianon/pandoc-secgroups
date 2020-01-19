@@ -14,7 +14,7 @@ Users of [pandoc-vex] should soon replace that filter with this one, which is mo
 
 ### New lua filter (RECOMMENDED)
 
-Simply copy `secgroup.lua` to `~/.pandoc/filters`
+Simply copy `secgroups.lua` to `~/.pandoc/filters`
 
 ### Old python filter (LEGACY)
 
@@ -25,7 +25,7 @@ Simply copy `secgroup.lua` to `~/.pandoc/filters`
 ## usage
 
 The filter must be put *before* pandoc-crossref in pandoc filter chain.
-If you use the new lua filter (recommended), put `--lua-filter=secgroups.lua` in your pandoc command. 
+If you use the new lua filter (recommended), put `--lua-filter=secgroups.lua` in your pandoc command.
 
 If you still want to use the old (legacy) python filter, use `--filter=pandoc-secgroups` instead - but it is not recommended, since the new lua filter may be almost 3 times faster.
 
